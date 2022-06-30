@@ -29,8 +29,6 @@ links = ['https://sp.olx.com.br/sao-paulo-e-regiao/zona-sul/imoveis/venda/aparta
          'https://rj.olx.com.br/rio-de-janeiro-e-regiao/zona-oeste/imoveis/venda/apartamentos?f=p&sd=2151&sd=2146&sd=2144&sf=1',
          'https://rj.olx.com.br/rio-de-janeiro-e-regiao/zona-sul/imoveis/venda/apartamentos?f=p&sd=2232&sd=2234&sd=2231&sd=2219&sd=2225&sd=2220&sd=2227&sd=2230&sd=2226&sd=2228&sd=2233&sd=2224&sd=2235&sd=2217&sd=2229&sf=1']
 # 13 Links
-driver.get(links[3])
-
 
 # Basic Function
 def click_element(element):
@@ -152,48 +150,51 @@ def send_whatsapp():
 
 
 number_announcement = 0
-for n in range(7, 56):
-    number_announcement += 1
-    print(f'------ About announcement {number_announcement} -------')
 
-    # Pages need to reload due to an OLX update
-    if n == 1:
-        print('Page 1, will not refresh')
+for n in range(1, 13):
+    driver.get(links[n])
+    for n in range(1, 56):
+        number_announcement += 1
+        print(f'------ About announcement {number_announcement} -------')
 
-    else:
-        print(f'Page {number_announcement}, will refresh')
-        driver.refresh()
+        # Pages need to reload due to an OLX update
+        if n == 1:
+            print('Page 1, will not refresh')
 
-    try:
-        click_element(f'//*[@id="ad-list"]/li[{n}]/div/a/div/div[1]/div[1]/div/img')
-        print('Clicked on the Ad')
+        else:
+            print(f'Page {number_announcement}, will refresh')
+            driver.refresh()
 
-    # if can't click in the ad, continue
-    except Exception as e:
-        print('Error to Click Ad, li =', n)
-        number_announcement -= 1
-        continue
-
-    change_screen(1)
-
-    # Try to find phone
-    try:
-        click_element('//*[@id="miniprofile"]/div/div/div/div[5]/div/a/span/div')
-        print('Phone found')
-        sleep(2)
         try:
-            if send_whatsapp() is False:
-                continue
+            click_element(f'//*[@id="ad-list"]/li[{n}]/div/a/div/div[1]/div[1]/div/img')
+            print('Clicked on the Ad')
 
+        # if can't click in the ad, continue
         except Exception as e:
-            print(e)
-            print('There was an error sending the message')
-    except Exception as e:
-        # print(e)
-        print('Phone not found')
+            print('Error to Click Ad, li =', n)
+            number_announcement -= 1
+            continue
+
+        change_screen(1)
+
+        # Try to find phone
+        try:
+            click_element('//*[@id="miniprofile"]/div/div/div/div[5]/div/a/span/div')
+            print('Phone found')
+            sleep(2)
+            try:
+                if send_whatsapp() is False:
+                    continue
+
+            except Exception as e:
+                print(e)
+                print('There was an error sending the message')
+        except Exception as e:
+            # print(e)
+            print('Phone not found')
+            driver.close()
+            change_screen(0)
+            continue
+
         driver.close()
         change_screen(0)
-        continue
-
-    driver.close()
-    change_screen(0)
