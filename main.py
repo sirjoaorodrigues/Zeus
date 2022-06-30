@@ -1,3 +1,4 @@
+# Time
 from time import sleep
 
 # Selenium configuration
