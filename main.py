@@ -29,7 +29,7 @@ links = ['https://sp.olx.com.br/sao-paulo-e-regiao/zona-sul/imoveis/venda/aparta
          'https://rj.olx.com.br/rio-de-janeiro-e-regiao/zona-oeste/imoveis/venda/apartamentos?f=p&sd=2151&sd=2146&sd=2144&sf=1',
          'https://rj.olx.com.br/rio-de-janeiro-e-regiao/zona-sul/imoveis/venda/apartamentos?f=p&sd=2232&sd=2234&sd=2231&sd=2219&sd=2225&sd=2220&sd=2227&sd=2230&sd=2226&sd=2228&sd=2233&sd=2224&sd=2235&sd=2217&sd=2229&sf=1']
 # 13 Links
-driver.get(links[1])
+driver.get(links[3])
 
 
 # Basic Function
@@ -75,8 +75,9 @@ def send_whatsapp():
     words = ['Imobiliária', 'Imobiliaria', 'corretor', 'Consultor', 'corretora', 'CONSULTORA', 'Consultoria', 'imóveis',
              'imoveis']
 
+    # Check if Real State
     if check_user(name_user, words):
-        print('Not Real State\n')
+        print('Not Real State')
     else:
         print('Probably a Real State\n')
         driver.close()
@@ -89,8 +90,23 @@ def send_whatsapp():
     clear_pt3 = clear_pt2.replace(' ', '')
     clear_pt4 = clear_pt3.replace('-', '')
 
-    # If number don't have 11 numbers, continue
     print(clear_pt4)
+
+    # Check Phone
+    with open('db.txt', 'r') as dbr:
+        db_read = dbr.readlines()
+        if (str(clear_pt4) + '\n') in db_read:
+            dbr.close()
+            driver.close()
+            change_screen(0)
+            print('The Number already Sent')
+            return False
+        else:
+            dbr.close()
+            with open('db.txt', 'a+') as dbw:
+                dbw.write(str(clear_pt4) + '\n')
+
+    # If number don't have 11 numbers, continue
     if len(clear_pt4) != 11:
         print('Invalid Phone')
 
@@ -136,7 +152,7 @@ def send_whatsapp():
 
 
 number_announcement = 0
-for n in range(1, 56):
+for n in range(7, 56):
     number_announcement += 1
     print(f'------ About announcement {number_announcement} -------')
 
