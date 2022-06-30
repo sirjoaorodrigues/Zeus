@@ -17,7 +17,7 @@ links_sp = ['https://sp.olx.com.br/sao-paulo-e-regiao/zona-sul/imoveis/venda/apa
             'https://sp.olx.com.br/sao-paulo-e-regiao/zona-leste/imoveis/venda/apartamentos?f=p&sd=2900&sd=2893&sd=2817&sd=2892&sd=2889&sd=2890&sd=2894&sd=2875&sd=2885&sd=2879&sd=2897&sd=2878&sd=2880&sd=2887&sd=2902&sd=2898&sd=2905&sf=1',   # 1
             'https://sp.olx.com.br/sao-paulo-e-regiao/zona-oeste/imoveis/venda/apartamentos?f=p&sd=2913&sd=2933&sd=2808&sd=2922&sd=2917&sd=2912&sd=2932&sd=2930&sd=2919&sd=2915&sd=2914&sd=2931&sd=2920&sd=2928&sd=2926&sd=2927&sd=2909&sd=2929&sf=1']
 
-driver.get(links_sp[1])
+driver.get(links_sp[2])
 
 
 # Basic Function
@@ -26,7 +26,7 @@ def click_element(element):
 
 
 def wait_element(element):
-    wdw(driver, 40).until(ec.element_to_be_clickable((By. XPATH, element)))
+    wdw(driver, 100).until(ec.element_to_be_clickable((By. XPATH, element)))
 
 
 def change_screen(screen):
@@ -39,9 +39,9 @@ def send_whatsapp():
 
     # Get name and number
     name = '//*[@id="miniprofile"]/div/div/div/div[2]/div/span'
-    phone = '//*[@id="miniprofile"]/div/div/div/div[4]/div/a/div[2]'
+    phone = '//*[@id="miniprofile"]/div/div/div/div[5]/div/a/div[2]'
     name2 = '//*[@id="miniprofile"]/div/div/div[2]/div[2]/div/div[1]/div/span'
-    phone2 = '//*[@id="miniprofile"]/div/div/div[2]/div[4]/div/a/div[2]'
+    phone2 = '//*[@id="miniprofile"]/div/div/div[2]/div[5]/div/a/div[2]'
 
     try:
         name_user = wdw(driver, 5).until(ec.element_to_be_clickable((By.XPATH, name))).text
@@ -88,7 +88,7 @@ def send_whatsapp():
 
         second_message = 'Obrigado pela atenção! Fico à disposição.\n'
 
-        txt_box = '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]/div/div[2]'
+        txt_box = '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]'
 
         find_text_box = driver.find_element(By.XPATH, txt_box)
 
@@ -129,12 +129,13 @@ for n in range(1, 56):
 
     # Try to find phone
     try:
-        click_element('//*[@id="miniprofile"]/div/div/div/div[4]/div/a/span/div')
+        click_element('//*[@id="miniprofile"]/div/div/div/div[5]/div/a/span/div')
         print('Phone found')
         sleep(2)
         try:
             send_whatsapp()
         except Exception as e:
+            print(e)
             print('There was an error sending the message')
     except Exception as e:
         # print(e)
