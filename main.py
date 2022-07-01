@@ -30,6 +30,7 @@ links = ['https://sp.olx.com.br/sao-paulo-e-regiao/zona-sul/imoveis/venda/aparta
          'https://rj.olx.com.br/rio-de-janeiro-e-regiao/zona-sul/imoveis/venda/apartamentos?f=p&sd=2232&sd=2234&sd=2231&sd=2219&sd=2225&sd=2220&sd=2227&sd=2230&sd=2226&sd=2228&sd=2233&sd=2224&sd=2235&sd=2217&sd=2229&sf=1']
 # 13 Links
 
+
 # Basic Function
 def click_element(element):
     driver.find_element(By. XPATH, element).click()
@@ -151,7 +152,7 @@ def send_whatsapp():
 
 number_announcement = 0
 
-for n in range(1, 13):
+for n in range(9, 13):
     driver.get(links[n])
     for n in range(1, 56):
         number_announcement += 1
