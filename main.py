@@ -129,12 +129,9 @@ def send_whatsapp():
 
         salutation = f'Olá {name_user}, tudo bem?\n'
 
-        first_message = 'Meu nome é João Collado, Creci: 95.176, vi seu imóvel anunciado na OLX. Gostaria de te ajudar' \
-                        ' a aumentar as chances de venda do seu imóvel, anunciando nas principais imobiliárias do país, ' \
-                        'a Loft, o 5º Andar, a EmCasa e a Jazz. \n'
+        first_message = 'Message 1\n'
 
-        second_message = 'Caso ainda não tenha anunciado em alguma delas, me informe seu nome completo e endereço do' \
-                         ' apartamento para eu cadastrá-lo, e alguém entrar em contato para publicação.\n'
+        second_message = 'Message 2\n'
 
         txt_box = '//*[@id="main"]/footer/div[1]/div/span[2]/div/div[2]/div[1]'
 
